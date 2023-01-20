@@ -31,27 +31,32 @@ class WebtoonItem extends StatelessWidget {
       },
       child: Column(
         children: [
-          Container(
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 10,
-                    offset: const Offset(5, 5),
-                    color: Colors.black.withOpacity(0.5),
-                  )
-                ]),
-            width: 250,
-            child: Image.network(thumbnail),
+          Hero(
+            tag: id,
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 10,
+                      offset: const Offset(5, 5),
+                      color: Colors.black.withOpacity(0.5),
+                    )
+                  ]),
+              width: 250,
+              child: Image.network(thumbnail),
+            ),
           ),
           const SizedBox(
             height: 10,
           ),
-          Text(title,
-              style: const TextStyle(
-                fontSize: 22,
-              )),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 22,
+            ),
+          ),
         ],
       ),
     );
