@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/services/api_service.dart';
+import 'package:my_app/widgets/webtoon_item.dart';
 
 import '../models/webtoon_model.dart';
 
@@ -51,30 +52,10 @@ class WebToonHome extends StatelessWidget {
       itemCount: snapshot.data!.length,
       itemBuilder: (context, index) {
         var webtoon = snapshot.data![index];
-        return Column(
-          children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      offset: const Offset(5, 5),
-                      color: Colors.black.withOpacity(0.5),
-                    )
-                  ]),
-              width: 250,
-              child: Image.network(webtoon.thumbnail),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(webtoon.title,
-                style: const TextStyle(
-                  fontSize: 22,
-                )),
-          ],
+        return WebtoonItem(
+          id: webtoon.id,
+          thumbnail: webtoon.thumbnail,
+          title: webtoon.title,
         );
       },
     );
