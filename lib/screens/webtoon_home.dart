@@ -26,14 +26,13 @@ class WebToonHome extends StatelessWidget {
           future: webtoons,
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
-              return ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(width: 20),
-                scrollDirection: Axis.horizontal,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  var webtoon = snapshot.data![index];
-                  return Text(webtoon.title);
-                },
+              return Column(
+                children: [
+                  const SizedBox(height: 50),
+                  Expanded(
+                    child: renderWebtoonsList(snapshot),
+                  ),
+                ],
               );
             } else {
               return const Center(
@@ -41,6 +40,43 @@ class WebToonHome extends StatelessWidget {
               );
             }
           })),
+    );
+  }
+
+  ListView renderWebtoonsList(AsyncSnapshot<List<WebtoonModel>> snapshot) {
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      separatorBuilder: (context, index) => const SizedBox(width: 40),
+      scrollDirection: Axis.horizontal,
+      itemCount: snapshot.data!.length,
+      itemBuilder: (context, index) {
+        var webtoon = snapshot.data![index];
+        return Column(
+          children: [
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 10,
+                      offset: const Offset(5, 5),
+                      color: Colors.black.withOpacity(0.5),
+                    )
+                  ]),
+              width: 250,
+              child: Image.network(webtoon.thumbnail),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(webtoon.title,
+                style: const TextStyle(
+                  fontSize: 22,
+                )),
+          ],
+        );
+      },
     );
   }
 }
