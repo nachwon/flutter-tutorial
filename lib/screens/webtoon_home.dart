@@ -1,29 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/webtoon_model.dart';
 import 'package:my_app/services/api_service.dart';
 
-class WebToonHome extends StatefulWidget {
-  const WebToonHome({super.key});
+import '../models/webtoon_model.dart';
 
-  @override
-  State<WebToonHome> createState() => _WebToonHomeState();
-}
+class WebToonHome extends StatelessWidget {
+  WebToonHome({super.key});
 
-class _WebToonHomeState extends State<WebToonHome> {
-  List<WebtoonModel> webtoons = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    waitForWebtoons();
-  }
-
-  void waitForWebtoons() async {
-    webtoons = await ApiService.getTodaysToons();
-    isLoading = false;
-    setState(() {});
-  }
+  final Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +22,15 @@ class _WebToonHomeState extends State<WebToonHome> {
           ),
         ),
       ),
+      body: FutureBuilder(
+          future: webtoons,
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              return const Text("There is data!");
+            } else {
+              return const Text("Loading...");
+            }
+          })),
     );
   }
 }
