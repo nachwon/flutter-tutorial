@@ -70,6 +70,34 @@ class _WebtoonDetailState extends State<WebtoonDetail> {
               ),
             ],
           ),
+          const SizedBox(height: 30),
+          FutureBuilder(
+            future: webtoon,
+            builder: ((context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.about,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        '${snapshot.data!.genre}  /  ${snapshot.data!.age}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return const Text("...");
+              }
+            }),
+          )
         ],
       ),
     );
