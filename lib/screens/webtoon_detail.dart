@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/webtoon_detail_model.dart';
 import '../models/webtoon_episode_model.dart';
 import '../services/api_service.dart';
+import '../widgets/episode.dart';
 
 class WebtoonDetail extends StatefulWidget {
   final String id, title, thumbnail;
@@ -100,44 +101,13 @@ class _WebtoonDetailState extends State<WebtoonDetail> {
                 future: episodes,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Container(
-                      child: Column(children: [
-                        for (var ep in snapshot.data!)
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 5,
-                                    color: Colors.black.withOpacity(0.1),
-                                    offset: const Offset(1, 1))
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 15,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    ep.title,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const Icon(Icons.chevron_right)
-                                ],
-                              ),
-                            ),
-                          )
-                      ]),
-                    );
+                    return Column(children: [
+                      for (var ep in snapshot.data!)
+                        Episode(
+                          episode: ep,
+                          id: widget.id,
+                        )
+                    ]);
                   } else {
                     return Container();
                   }
