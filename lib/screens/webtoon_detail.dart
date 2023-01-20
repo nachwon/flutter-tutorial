@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-class WebtoonDetail extends StatelessWidget {
+import '../models/webtoon_detail_model.dart';
+import '../models/webtoon_episode_model.dart';
+import '../services/api_service.dart';
+
+class WebtoonDetail extends StatefulWidget {
   final String id, title, thumbnail;
 
   const WebtoonDetail({
@@ -11,13 +15,28 @@ class WebtoonDetail extends StatelessWidget {
   });
 
   @override
+  State<WebtoonDetail> createState() => _WebtoonDetailState();
+}
+
+class _WebtoonDetailState extends State<WebtoonDetail> {
+  late Future<WebtoonDetailModel> webtoon;
+  late Future<List<WebtoonEpisodeModel>> episodes;
+
+  @override
+  void initState() {
+    super.initState();
+    webtoon = ApiService.getToonById(widget.id);
+    episodes = ApiService.getEpisodesById(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.green,
         backgroundColor: Colors.white,
         title: Text(
-          title,
+          widget.title,
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -33,7 +52,7 @@ class WebtoonDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Hero(
-                tag: id,
+                tag: widget.id,
                 child: Container(
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
@@ -46,7 +65,7 @@ class WebtoonDetail extends StatelessWidget {
                         )
                       ]),
                   width: 250,
-                  child: Image.network(thumbnail),
+                  child: Image.network(widget.thumbnail),
                 ),
               ),
             ],

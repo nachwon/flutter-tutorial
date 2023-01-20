@@ -24,23 +24,24 @@ class WebToonHome extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-          future: webtoons,
-          builder: ((context, snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children: [
-                  const SizedBox(height: 50),
-                  Expanded(
-                    child: renderWebtoonsList(snapshot),
-                  ),
-                ],
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          })),
+        future: webtoons,
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: [
+                const SizedBox(height: 50),
+                Expanded(
+                  child: renderWebtoonsList(snapshot),
+                ),
+              ],
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }),
+      ),
     );
   }
 
