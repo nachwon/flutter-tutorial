@@ -21,6 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return duration.toString().split(".").first.substring(2, 7);
   }
 
+  @override
+  void initState() {
+    super.initState();
+    final currentUrl = Uri.base;
+    print(currentUrl);
+  }
+
   void onTick(Timer timer) {
     if (totalSeconds <= 0) {
       setState(() {
