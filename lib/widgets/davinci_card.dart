@@ -6,7 +6,7 @@ enum CardType { white, black }
 
 const mainWhite = Colors.white;
 const mainBlack = Color.fromARGB(255, 37, 37, 37);
-const double cardWidth = 40;
+const double cardWidth = 38;
 const double cardHeight = cardWidth * 1.4444;
 const double barWidth = cardWidth / 1.8;
 const double numberSize = cardWidth / 1.5;
