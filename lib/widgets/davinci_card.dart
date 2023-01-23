@@ -31,18 +31,18 @@ class _DavinciCardState extends State<DavinciCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(3),
-      height: 95,
-      width: 65,
+      height: 65,
+      width: 45,
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         color: getColor(Colors.white, black),
         boxShadow: const [
           BoxShadow(
-            color: Color.fromARGB(255, 198, 198, 198),
+            color: Color.fromARGB(255, 101, 101, 101),
             inset: false,
             blurStyle: BlurStyle.normal,
-            blurRadius: 5,
-            spreadRadius: 0,
+            blurRadius: 3,
+            spreadRadius: -1,
             offset: Offset(2, 3),
           ),
         ],
@@ -59,7 +59,7 @@ class _DavinciCardState extends State<DavinciCard> {
               inset: true,
               blurRadius: 7,
               offset: const Offset(0, 5),
-              spreadRadius: -2,
+              spreadRadius: -3,
               color: getColor(
                 const Color.fromARGB(255, 157, 157, 157),
                 Colors.black,
@@ -80,13 +80,13 @@ class _DavinciCardState extends State<DavinciCard> {
               widget.number,
               style: TextStyle(
                 color: getColor(Colors.black, Colors.white),
-                fontSize: 38,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Container(
                 height: 2,
-                width: 35,
+                width: 25,
                 color: getColor(Colors.black, Colors.white))
           ],
         ),
