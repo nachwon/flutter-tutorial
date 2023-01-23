@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum CardType { white, black }
 
@@ -158,17 +159,17 @@ class _CardInnerOpenState extends State<_CardInnerOpen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            widget.number,
-            style: TextStyle(
-              color: getColor(
-                Colors.black,
-                Colors.white,
-              ),
-              fontSize: numberSize,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(widget.number,
+              style: GoogleFonts.passionOne(
+                textStyle: TextStyle(
+                  color: getColor(
+                    Colors.black,
+                    Colors.white,
+                  ),
+                  fontSize: numberSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
           Container(
             height: 2,
             width: barWidth,
