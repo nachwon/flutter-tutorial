@@ -6,7 +6,7 @@ enum CardType { white, black }
 
 const mainWhite = Colors.white;
 const mainBlack = Color.fromARGB(255, 37, 37, 37);
-const double cardWidth = 45;
+const double cardWidth = 40;
 const double cardHeight = cardWidth * 1.4444;
 const double barWidth = cardWidth / 1.8;
 const double numberSize = cardWidth / 1.5;
@@ -217,7 +217,7 @@ class _CardInnerClosedState extends State<_CardInnerClosed> {
           color: getColor(mainWhite, mainBlack),
         ),
       ),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -271,8 +271,8 @@ class _DotState extends State<_Dot> {
             ],
             color: getColor(Colors.white, Colors.black),
           ),
-          width: 5,
-          height: 5,
+          width: 4,
+          height: 4,
         ),
       ],
     );
