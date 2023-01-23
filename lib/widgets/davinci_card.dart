@@ -18,7 +18,7 @@ class DavinciCard extends StatefulWidget {
   const DavinciCard({
     super.key,
     required this.number,
-    this.isOpen = true,
+    this.isOpen = false,
     this.type = CardType.black,
   });
 
@@ -26,44 +26,87 @@ class DavinciCard extends StatefulWidget {
   State<DavinciCard> createState() => _DavinciCardState();
 }
 
-class _DavinciCardState extends State<DavinciCard> {
+class _DavinciCardState extends State<DavinciCard>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+  late bool isOpen;
+
+  @override
+  void initState() {
+    super.initState();
+
+    isOpen = widget.isOpen;
+
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+    animation = Tween<double>(begin: 1, end: 1.1)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceIn))
+      ..addListener(() {
+        setState(() {});
+      });
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        isOpen = !isOpen;
+        setState(() {});
+        controller.reverse();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   Color getColor(Color forWhite, Color forBlack) {
     return widget.type == CardType.white ? forWhite : forBlack;
   }
 
+  void handleCardTap() {
+    controller.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(3),
-      height: cardHeight,
-      width: cardWidth,
-      padding: const EdgeInsets.all(1),
-      decoration: BoxDecoration(
-        color: getColor(mainWhite, mainBlack),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(255, 101, 101, 101),
-            inset: false,
-            blurStyle: BlurStyle.normal,
-            blurRadius: 3,
-            spreadRadius: -1,
-            offset: Offset(2, 3),
+    return GestureDetector(
+      onTap: handleCardTap,
+      child: Transform.scale(
+        scale: animation.value,
+        child: Container(
+          margin: const EdgeInsets.all(3),
+          height: cardHeight,
+          width: cardWidth,
+          padding: const EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            color: getColor(mainWhite, mainBlack),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(255, 101, 101, 101),
+                inset: false,
+                blurStyle: BlurStyle.normal,
+                blurRadius: 3,
+                spreadRadius: -1,
+                offset: Offset(2, 3),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: getColor(mainWhite, mainBlack),
+              width: 1,
+            ),
           ),
-        ],
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          color: getColor(mainWhite, mainBlack),
-          width: 1,
+          child: isOpen
+              ? _CardInnerOpen(
+                  number: widget.number,
+                  type: widget.type,
+                )
+              : _CardInnerClosed(
+                  type: widget.type,
+                ),
         ),
       ),
-      child: widget.isOpen
-          ? _CardInnerOpen(
-              number: widget.number,
-              type: widget.type,
-            )
-          : _CardInnerClosed(
-              type: widget.type,
-            ),
     );
   }
 }
@@ -219,10 +262,10 @@ class _DotState extends State<_Dot> {
                 inset: true,
                 color: getColor(
                   const Color.fromARGB(255, 205, 205, 205),
-                  const Color.fromARGB(255, 53, 53, 53),
+                  const Color.fromARGB(255, 71, 71, 71),
                 ),
                 blurRadius: 2,
-                offset: const Offset(2, 3),
+                offset: const Offset(2, 2),
               ),
             ],
             color: getColor(Colors.white, Colors.black),
