@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/widgets/davinci_card.dart';
+import 'package:my_app/widgets/davinci_icon_button.dart';
 import 'package:my_app/widgets/davinci_user_profile.dart';
 
 import 'widgets/davinci_card_deck.dart';
@@ -75,7 +76,8 @@ class _AppState extends State<App> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            Container(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               height: 60,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -112,7 +114,8 @@ class _AppState extends State<App> {
                 cards: myCards,
               ),
             ),
-            SizedBox(
+            Container(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               height: 60,
               child: Row(
                 children: [
@@ -130,16 +133,27 @@ class _AppState extends State<App> {
             Container(
               color: Colors.white,
               height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: DavinciIconButton(
+                      text: "Chat",
+                      icon: Icons.chat_outlined,
+                      onTap: () {},
+                    ),
+                  ),
+                  Expanded(
+                    child: DavinciIconButton(
+                      text: "End Turn",
+                      icon: Icons.restart_alt_sharp,
+                      color: const Color.fromARGB(255, 196, 7, 7),
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              ),
             ),
-
-            // DavinciCardDeck(
-            //   cards: [
-            //     DavinciCard(number: "1", type: CardType.white),
-            //     DavinciCard(number: "2", type: CardType.white),
-            //     DavinciCard(number: "3", type: CardType.black),
-            //     DavinciCard(number: "5", type: CardType.white),
-            //   ],
-            // ),
           ],
         ),
       ),
