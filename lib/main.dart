@@ -26,6 +26,7 @@ class App extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.data != null) {
           Map<String, dynamic> resp = jsonDecode(snapshot.data);
+          print(resp);
           MessageModel message = MessageModel.fromJson(resp);
 
           return DavinciGame(
@@ -37,11 +38,23 @@ class App extends StatelessWidget {
           return MaterialApp(
             home: Scaffold(
               appBar: AppBar(),
-              body: GestureDetector(
-                  onTap: () {
-                    channel.sink.add("test");
-                  },
-                  child: const Text("Test")),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          channel.sink.add(
+                              '{"action": {"command": "CREATE_SESSION", "params": {"username": "Test"}}}');
+                        },
+                        child: const Text("INIT GAME"),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         }

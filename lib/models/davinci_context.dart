@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'card_model.dart';
+import 'davinci_game.dart';
 import 'player.dart';
 import 'action.dart';
 
@@ -11,18 +11,13 @@ class DavinciContext {
   final String sessionId;
   final List<Player> players;
   final Action? action;
-  final String state;
-  final String turn;
-  @JsonKey(name: "unused_cards")
-  final List<CardModel> unusedCards;
+  final DavinciGameModel? game;
 
   DavinciContext(
     this.sessionId,
     this.players,
     this.action,
-    this.state,
-    this.turn,
-    this.unusedCards,
+    this.game,
   );
 
   factory DavinciContext.fromJson(Map<String, dynamic> json) =>

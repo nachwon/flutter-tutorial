@@ -65,7 +65,7 @@ class DavinciGame extends StatelessWidget {
             Flexible(
               flex: 1,
               child: DavinciCardDeck(
-                cards: davinciContext.unusedCards,
+                cards: davinciContext.game?.unusedCards ?? [],
               ),
             ),
             Flexible(
