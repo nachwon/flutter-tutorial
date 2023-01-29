@@ -12,16 +12,78 @@ const double barWidth = cardWidth / 1.8;
 const double numberSize = cardWidth / 1.5;
 
 class DavinciCard extends StatefulWidget {
+  final String id;
   final String number;
   final bool isOpen;
   final CardType type;
 
   const DavinciCard({
     super.key,
+    required this.id,
     required this.number,
     this.isOpen = false,
     this.type = CardType.black,
   });
+
+  factory DavinciCard.fromId(String id) {
+    String index = id[0];
+    String jokerKey = id[1];
+    String color = id[2];
+    String state = id[3];
+    Map numMap = {
+      "A": "0",
+      "B": "0",
+      "C": "1",
+      "D": "1",
+      "E": "2",
+      "F": "2",
+      "G": "3",
+      "H": "3",
+      "I": "4",
+      "J": "4",
+      "K": "5",
+      "L": "5",
+      "M": "6",
+      "N": "6",
+      "O": "7",
+      "P": "7",
+      "Q": "8",
+      "R": "8",
+      "S": "9",
+      "T": "9",
+      "U": "10",
+      "V": "10",
+      "W": "11",
+      "X": "11"
+    };
+
+    String number;
+    if (jokerKey != "3") {
+      number = "-";
+    } else {
+      number = numMap[index];
+    }
+
+    CardType type;
+    if (color == "W") {
+      type = CardType.white;
+    } else {
+      type = CardType.black;
+    }
+
+    bool isOpen;
+    if (state == "C") {
+      isOpen = false;
+    } else {
+      isOpen = true;
+    }
+
+    return DavinciCard(id: id, number: number, isOpen: isOpen, type: type);
+  }
+
+  String export() {
+    return id;
+  }
 
   @override
   State<DavinciCard> createState() => _DavinciCardState();
